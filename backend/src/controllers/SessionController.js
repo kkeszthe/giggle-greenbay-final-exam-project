@@ -28,6 +28,7 @@ export class SessionController {
       .login({ username, password })
       .then(response => res.status(201).json(response))
       .catch(error => {
+        console.log(error);
         const status = this.errorMessages[error.message]
           ? this.errorMessages[error.message].status
           : 401;

@@ -1,0 +1,22 @@
+.products {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.products .icons {
+  display: flex;
+  height: 10em;
+  width: 20em;
+  background-color: white;
+  padding: 10px;
+}
+.products img {
+  height: 10em;
+  width: 10em;
+}
+
+.products p {
+  margin: 5px;
+}

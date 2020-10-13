@@ -23,10 +23,10 @@ export class SessionService {
       username,
       password,
     });
-    if (user.length === 0)
-      throw new Error(this.errorCodes.invalidUsernameAndPassword);
+    console.log(user);
+    if (!user) throw new Error(this.errorCodes.invalidUsernameAndPassword);
     return {
-      token: this.getToken(user.userId),
+      token: this.getToken({ userId: user.id }),
       userId: user.id,
       username: user.username,
       photo_url: user.photo_url,

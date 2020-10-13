@@ -1,0 +1,8 @@
+header.MuiAppBar-colorPrimary {
+  background-color: seagreen;
+}
+
+span.balance {
+  margin: 10px;
+  font-weight: bolder;
+}

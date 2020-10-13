@@ -46,11 +46,13 @@ export class UserService {
   }
 
   async getByUsernameAndPassword({ username, password }) {
-    this.validateParams({ username, password });
+    if (!username) throw new Error(this.errorCodes.missingUsername);
+    if (!password) throw new Error(this.errorCodes.missingPassword);
     return (await this.user.getAuthentication({ username, password }))[0];
   }
 
   async getById({ userId }) {
+    console.log(userId);
     return (await this.user.getById({ userId }))[0];
   }
 

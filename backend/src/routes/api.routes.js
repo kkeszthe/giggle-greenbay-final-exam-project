@@ -21,6 +21,7 @@ router.post('/sessions', sessionController.post);
 router.use(authenticationMiddleware.validate);
 router.post('/auth', authenticationController.post);
 
+router.get('/users/:userId', userController.getById);
 router.put('/users/:userId/balance', userController.updateBalance);
 router.post('/products', productController.post);
 router.get('/products', productController.get);

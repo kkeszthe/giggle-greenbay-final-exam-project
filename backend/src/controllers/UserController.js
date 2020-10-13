@@ -3,6 +3,7 @@ export class UserController {
     this.user = userService;
     this.post = this.post.bind(this);
     this.updateBalance = this.updateBalance.bind(this);
+    this.getById = this.getById.bind(this);
     this.errorCodes = errorCodes;
     this.errorMessages = {
       [errorCodes.missingUsernameAndPassword]: {
@@ -40,6 +41,22 @@ export class UserController {
     const { username, password, photo_url } = req.body;
     this.user
       .add({ username, password, photo_url })
+      .then(response => res.status(201).json(response))
+      .catch(error => {
+        const status = this.errorMessages[error.message]
+          ? this.errorMessages[error.message].status
+          : 400;
+        const message = this.errorMessages[error.message]
+          ? this.errorMessages[error.message].message
+          : error.message;
+        res.status(status).json({ error: message });
+      });
+  }
+
+  getById(req, res) {
+    const { userId } = req.params;
+    this.user
+      .getById({ userId })
       .then(response => res.status(201).json(response))
       .catch(error => {
         const status = this.errorMessages[error.message]
