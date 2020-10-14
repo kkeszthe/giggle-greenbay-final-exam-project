@@ -14,15 +14,9 @@ export class UserService {
 
   validateURL(string) {
     var pattern = new RegExp(
-      '^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$',
-      'i'
-    ); // fragment locator
-    return !!pattern.test(string);
+      '^(http://www.|https://www.|http://|https://)?[a-z0-9]+([-.]{1}[a-z0-9]+)*.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?'
+    );
+    return pattern.test(string);
   }
 
   async add({ username, password, photo_url }) {
@@ -52,15 +46,15 @@ export class UserService {
   }
 
   async getById({ userId }) {
-    console.log(userId);
     return (await this.user.getById({ userId }))[0];
   }
 
   async updateBalance({ userId, amount }) {
     if (!amount) throw new Error(this.errorCodes.missingParam);
-    console.log(amount);
-    const balance = ((await this.getById({ userId })).balance += amount);
+    const balance = ((await this.getById({ userId })).balance += parseInt(
+      amount
+    ));
     await this.user.updateBalance({ userId, balance });
-    return balance;
+    return await this.getById({ userId });
   }
 }

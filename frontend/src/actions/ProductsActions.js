@@ -4,6 +4,8 @@ import {
   ADD_PRODUCT,
   ADD_PRODUCT_SUCCESS,
   SET_ERROR_SUCCESS,
+  SET_PRODUCT,
+  SET_PRODUCT_SUCCESS,
 } from '../constants/ActionTypes';
 import { generalFetch } from '../services/fetchService';
 
@@ -29,6 +31,59 @@ export const getProductsAction = () => {
   };
 };
 
+export const getProductAction = productId => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_PRODUCT,
+    });
+
+    return generalFetch(`products/${productId}`, {
+      method: 'GET',
+      token: getState().token,
+    })
+      .then(data => {
+        if (data.error) {
+          dispatch({ type: SET_ERROR_SUCCESS, payload: data.error });
+          return false;
+        } else {
+          dispatch({
+            type: SET_PRODUCT_SUCCESS,
+            payload: data,
+          });
+
+          return true;
+        }
+      })
+      .then(result => result);
+  };
+};
+
+export const buyProductAction = productId => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_PRODUCT,
+    });
+
+    return generalFetch(`products/${productId}`, {
+      method: 'PUT',
+      token: getState().token,
+      body: {
+        userId: localStorage.user,
+      },
+    }).then(
+      response => {
+        response.error
+          ? dispatch({ type: SET_ERROR_SUCCESS, payload: response.error })
+          : dispatch({
+              type: SET_PRODUCT_SUCCESS,
+              payload: response,
+            });
+      },
+      error => dispatch({ type: SET_ERROR_SUCCESS, payload: error.error })
+    );
+  };
+};
+
 export const addProductAction = (
   product_name,
   description,
@@ -48,7 +103,7 @@ export const addProductAction = (
         description,
         photo_url,
         price,
-        seller_id: getState().user,
+        seller_id: localStorage.user,
       },
     }).then(
       response => {

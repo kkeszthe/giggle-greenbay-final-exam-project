@@ -1,16 +1,24 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
+
 import './Products.css';
 import { getProductsAction } from '../../actions/ProductsActions';
 
 function Products({ products, getProducts }) {
   const history = useHistory();
+
   useEffect(() => {
     getProducts();
   }, [getProducts]);
+
   function goToBuilding(productId) {
-    history.push(`products/${productId}`);
+    history.push(`/alien/${productId}`);
+  }
+  if (products.length === 0) {
+    return <CircularProgress color="inherit" />;
   }
   return (
     <section className="products">
@@ -26,8 +34,8 @@ function Products({ products, getProducts }) {
             className="image"
           ></img>
           <div>
-            <p className="productName">{product.product_name}</p>
-            <p className="productPrice">{product.price} GBD</p>
+            <Typography variant="body1">{product.product_name}</Typography>
+            <Typography variant="body1">{product.price} GBD</Typography>
           </div>
         </div>
       ))}

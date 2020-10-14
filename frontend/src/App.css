@@ -7,10 +7,9 @@ body {
   height: 100%;
 }
 p {
-  margin: 0px;
   color: #676969;
 }
-div#root {
+#root {
   height: 100%;
 }
 div.App {
@@ -18,7 +17,6 @@ div.App {
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: 1fr;
-  font-family: Arial;
 }
 
 section.content {

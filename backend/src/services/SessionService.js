@@ -23,7 +23,6 @@ export class SessionService {
       username,
       password,
     });
-    console.log(user);
     if (!user) throw new Error(this.errorCodes.invalidUsernameAndPassword);
     return {
       token: this.getToken({ userId: user.id }),

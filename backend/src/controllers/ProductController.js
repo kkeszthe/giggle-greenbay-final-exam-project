@@ -4,6 +4,7 @@ export class ProductController {
     this.post = this.post.bind(this);
     this.get = this.get.bind(this);
     this.put = this.put.bind(this);
+    this.getById = this.getById.bind(this);
     this.errorCodes = errorCodes;
     this.errorMessages = {
       [errorCodes.missingUsernameAndPassword]: {
@@ -72,6 +73,22 @@ export class ProductController {
   get(req, res) {
     this.product
       .getSellableProducts()
+      .then(response => res.status(201).json(response))
+      .catch(error => {
+        const status = this.errorMessages[error.message]
+          ? this.errorMessages[error.message].status
+          : 400;
+        const message = this.errorMessages[error.message]
+          ? this.errorMessages[error.message].message
+          : error.message;
+        res.status(status).json({ error: message });
+      });
+  }
+
+  getById(req, res) {
+    const { productId } = req.params;
+    this.product
+      .getById({ productId })
       .then(response => res.status(201).json(response))
       .catch(error => {
         const status = this.errorMessages[error.message]

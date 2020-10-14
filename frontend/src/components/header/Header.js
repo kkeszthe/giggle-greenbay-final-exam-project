@@ -14,7 +14,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 import './Header.css';
-import ProductBox from '../products/ProductBox';
+import TopUpBox from '../user/TopUpBox';
+import SellProductBox from '../products/SellProductBox';
 import Error from '../Error';
 import { getUserAction } from '../../actions/UserActions';
 
@@ -44,22 +45,20 @@ const Header = ({ user, token, get }) => {
     setAnchorEl(null);
   };
 
-  const loggedIn = { link: `Hi ${user.username}!`, route: '/products' };
-  const loggedOut = { link: 'Hi! Login', route: '/login' };
-  const [openSell, setOpenSell] = React.useState(false);
+  const [openSellProduct, setOpenSellProduct] = React.useState(false);
+  const [openTopUp, setOpenTopUp] = React.useState(false);
 
-  let greeting;
-
-  const handleClickOpen = () => {
-    setOpenSell(true);
+  const handleClickOpenSellProduct = () => {
+    setOpenSellProduct(true);
+  };
+  const handleClickOpenTopUp = () => {
+    setOpenTopUp(true);
   };
   useEffect(() => {
     if (token) {
       get();
     }
   }, [token, get]);
-
-  token ? (greeting = loggedIn) : (greeting = loggedOut);
 
   return (
     <div className={classes.root}>
@@ -86,13 +85,8 @@ const Header = ({ user, token, get }) => {
               </IconButton>
               {token ? (
                 <>
-                  <Typography variant="h7" className={classes.title}>
-                    {user.username}
-                  </Typography>
-                  <Typography
-                    variant="h7"
-                    className={classes.title + ' balance'}
-                  >
+                  <Typography variant="overline">{user.username}</Typography>
+                  <Typography variant="overline" className={'balance'}>
                     {user.balance + ' GBD'}
                   </Typography>
                 </>
@@ -114,17 +108,26 @@ const Header = ({ user, token, get }) => {
                 onClose={handleClose}
               >
                 {token ? (
-                  <>
-                    <MenuItem onClick={handleClose}>Top-up account</MenuItem>
+                  [
                     <MenuItem
                       onClick={() => {
                         handleClose();
-                        handleClickOpen();
+                        handleClickOpenTopUp();
                       }}
+                      key={1}
+                    >
+                      Top-up account
+                    </MenuItem>,
+                    <MenuItem
+                      onClick={() => {
+                        handleClose();
+                        handleClickOpenSellProduct();
+                      }}
+                      key={2}
                     >
                       Sell product
-                    </MenuItem>
-                  </>
+                    </MenuItem>,
+                  ]
                 ) : (
                   <MenuItem
                     onClick={() => {
@@ -140,7 +143,8 @@ const Header = ({ user, token, get }) => {
           }
         </Toolbar>
       </AppBar>
-      <ProductBox open={openSell} setOpen={setOpenSell} />
+      <TopUpBox open={openTopUp} setOpen={setOpenTopUp} />
+      <SellProductBox open={openSellProduct} setOpen={setOpenSellProduct} />
       <Error />
     </div>
   );

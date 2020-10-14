@@ -25,6 +25,7 @@ router.get('/users/:userId', userController.getById);
 router.put('/users/:userId/balance', userController.updateBalance);
 router.post('/products', productController.post);
 router.get('/products', productController.get);
+router.get('/products/:productId', productController.getById);
 router.put('/products/:productId', productController.put);
 
 export default router;

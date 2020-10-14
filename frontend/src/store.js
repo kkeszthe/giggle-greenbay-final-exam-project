@@ -3,13 +3,15 @@ import thunk from 'redux-thunk';
 
 import { userReducer } from './reducers/userReducer';
 import { productsReducer } from './reducers/productsReducer';
+import { productReducer } from './reducers/productReducer';
 import { tokenReducer } from './reducers/tokenReducer';
 import { errorReducer } from './reducers/errorReducer';
 
 function root(state = {}, action) {
   return {
     user: userReducer(state.user, action),
-    products: productsReducer(state.troops, action),
+    products: productsReducer(state.products, action),
+    product: productReducer(state.product, action),
     token: tokenReducer(state.token, action),
     error: errorReducer(state.error, action),
   };

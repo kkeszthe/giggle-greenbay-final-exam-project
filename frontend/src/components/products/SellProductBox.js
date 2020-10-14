@@ -24,11 +24,10 @@ function SellProductBox({ open, setOpen, sell, setError }) {
   };
 
   const sellClickOn = () => {
-    if (!product_name || !description || !photo_url || price) {
+    if (!product_name || !description || !photo_url || !price) {
       setError('All fields are required');
     }
-    setPrice(parseInt(price));
-    if (!price || !(Number.isInteger(price) && price > 0)) {
+    if (!(Number.isInteger(parseInt(price)) || parseInt(price) < 0)) {
       setError('Price must be whole number');
     } else {
       sell(product_name, description, photo_url, price);
@@ -60,7 +59,6 @@ function SellProductBox({ open, setOpen, sell, setError }) {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            autoFocus
             required
             margin="dense"
             id="description"
@@ -75,7 +73,6 @@ function SellProductBox({ open, setOpen, sell, setError }) {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            autoFocus
             required
             margin="dense"
             id="photo"
@@ -88,7 +85,6 @@ function SellProductBox({ open, setOpen, sell, setError }) {
         </Grid>
         <Grid item xs={12}>
           <TextField
-            autoFocus
             margin="dense"
             id="price"
             label="Price"

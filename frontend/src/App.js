@@ -5,6 +5,7 @@ import './App.css';
 import Header from './components/header/Header';
 import Login from './components/login/Login';
 import Products from './components/products/Products';
+import Product from './components/products/Product';
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
 
             <Route path="/products">
               <Products />
+            </Route>
+            <Route path="/alien/:productId">
+              <Product />
             </Route>
           </Switch>
         </section>
