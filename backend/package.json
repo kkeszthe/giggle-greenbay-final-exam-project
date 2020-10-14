@@ -4,7 +4,13 @@
   "main": "index.js",
   "scripts": {
     "db": "db-migrate",
-    "start": "nodemon --exec babel-node -r ./node_modules/dotenv/config src/index.js"
+    "lint": "eslint . --ext .js",
+    "test": "jest --watchAll",
+    "test:ci": "jest --ci --collectCoverage --reporters=default",
+    "test:cover": "jest --collectCoverage",
+    "start": "nodemon --exec babel-node -r ./node_modules/dotenv/config src/index.js",
+    "build": "babel src -d dist",
+    "serve": "node dist/index.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -26,6 +32,10 @@
     "@babel/preset-env": "^7.11.5",
     "@types/jest": "^26.0.14",
     "babel-jest": "^26.5.2",
+    "eslint": "^7.11.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-restricted-globals": "^0.2.0",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",

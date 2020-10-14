@@ -14,7 +14,7 @@ function Products({ products, getProducts }) {
     getProducts();
   }, [getProducts]);
 
-  function goToBuilding(productId) {
+  function gotToProduct(productId) {
     history.push(`/alien/${productId}`);
   }
   if (products.length === 0) {
@@ -26,7 +26,7 @@ function Products({ products, getProducts }) {
         <div
           className="icons"
           key={product.product_id}
-          onClick={() => goToBuilding(product.product_id)}
+          onClick={() => gotToProduct(product.product_id)}
         >
           <img
             src={product.product_photo}

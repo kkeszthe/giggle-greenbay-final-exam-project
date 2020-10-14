@@ -4,7 +4,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act, Simulate } from 'react-dom/test-utils';
 import configureStore from 'redux-mock-store';
 
-import TroopUpgradeBox from './TroopUpgradeBox';
+import SellProductBox from './SellProductBox';
 import { store } from '../../store';
 
 global.fetch = jest.fn(async () => {

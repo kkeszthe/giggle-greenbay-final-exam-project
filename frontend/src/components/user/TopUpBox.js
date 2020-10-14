@@ -64,12 +64,7 @@ function TopUpBox({ open, setOpen, topUp, setError }) {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button
-          type="submit"
-          className="TroopUpgradeBTN"
-          onClick={topUpClickOn}
-          color="primary"
-        >
+        <Button type="submit" onClick={topUpClickOn} color="primary">
           Top-up
         </Button>
       </DialogActions>

@@ -103,12 +103,7 @@ function SellProductBox({ open, setOpen, sell, setError }) {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button
-          type="submit"
-          className="TroopUpgradeBTN"
-          onClick={sellClickOn}
-          color="primary"
-        >
+        <Button type="submit" onClick={sellClickOn} color="primary">
           Sell
         </Button>
       </DialogActions>
