@@ -31,7 +31,7 @@ export class ProductRepo {
   async getSellableProducts() {
     return (
       await this.db.query(
-        `SELECT ${this.table.name}.${this.table.columns.id} AS product_id, ${this.table.name}.${this.table.columns.name}, ${this.table.name}.${this.table.columns.description}, ${this.table.name}.${this.table.columns.photo_url} AS product_photo, ${this.table.name}.${this.table.columns.price}, ${this.table.name}.${this.table.columns.seller_id}, ${this.table.name}.${this.table.columns.buyer_id}, sellers.username AS seller_name, sellers.photo_url AS seller_photo 
+        `SELECT ${this.table.name}.${this.table.columns.id}, ${this.table.name}.${this.table.columns.name}, ${this.table.name}.${this.table.columns.description}, ${this.table.name}.${this.table.columns.photo_url} AS product_photo, ${this.table.name}.${this.table.columns.price}, ${this.table.name}.${this.table.columns.seller_id}, ${this.table.name}.${this.table.columns.buyer_id}, sellers.username AS seller_name, sellers.photo_url AS seller_photo 
         FROM products 
         LEFT JOIN users AS sellers ON ${this.table.name}.${this.table.columns.seller_id} = sellers.id 
         WHERE ${this.table.name}.${this.table.columns.buyer_id} IS NULL;`
@@ -42,7 +42,7 @@ export class ProductRepo {
   async getById({ productId }) {
     return (
       await this.db.query(
-        `SELECT ${this.table.name}.${this.table.columns.id} AS product_id, ${this.table.name}.${this.table.columns.name}, ${this.table.name}.${this.table.columns.description}, ${this.table.name}.${this.table.columns.photo_url} AS product_photo, ${this.table.name}.${this.table.columns.price}, ${this.table.name}.${this.table.columns.seller_id}, ${this.table.name}.${this.table.columns.buyer_id}, sellers.username AS seller_name, sellers.photo_url AS seller_photo
+        `SELECT ${this.table.name}.${this.table.columns.id}, ${this.table.name}.${this.table.columns.name}, ${this.table.name}.${this.table.columns.description}, ${this.table.name}.${this.table.columns.photo_url} AS product_photo, ${this.table.name}.${this.table.columns.price}, ${this.table.name}.${this.table.columns.seller_id}, ${this.table.name}.${this.table.columns.buyer_id}, sellers.username AS seller_name, sellers.photo_url AS seller_photo
       FROM products 
       LEFT JOIN users AS sellers ON ${this.table.name}.${this.table.columns.seller_id} = sellers.id 
       WHERE ${this.table.name}.${this.table.columns.id} = ${productId};`

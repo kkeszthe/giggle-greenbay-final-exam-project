@@ -1,5 +1,5 @@
 export class UserController {
-  constructor(userService, errorCodes) {
+  constructor({ userService, errorCodes }) {
     this.user = userService;
     this.post = this.post.bind(this);
     this.updateBalance = this.updateBalance.bind(this);
@@ -18,6 +18,10 @@ export class UserController {
         status: 400,
         message: 'Password is required.',
       },
+      [errorCodes.missingUrl]: {
+        status: 400,
+        message: 'URL is required.',
+      },
       [errorCodes.invalidPassword]: {
         status: 400,
         message: 'Password is too short.',
@@ -30,7 +34,7 @@ export class UserController {
         status: 400,
         message: 'Amount is missing.',
       },
-      [errorCodes.invalidURL]: {
+      [errorCodes.invalidUrl]: {
         status: 400,
         message: 'Valid URL is required.',
       },

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export class SessionService {
-  constructor(userService, errorCodes) {
+  constructor({ userService, errorCodes }) {
     this.user = userService;
     this.errorCodes = errorCodes;
   }
@@ -26,7 +26,7 @@ export class SessionService {
     if (!user) throw new Error(this.errorCodes.invalidUsernameAndPassword);
     return {
       token: this.getToken({ userId: user.id }),
-      userId: user.id,
+      id: user.id,
       username: user.username,
       photo_url: user.photo_url,
       balance: user.balance,

@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname, 'static/')));
 app.use(morgan('combined', { stream: logger.stream }));
 
 app.use('/api', api);
-//app.use('/system', system);
+app.use('/system', system);
 
 app.use(errorHandler);
 

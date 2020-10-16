@@ -30,19 +30,6 @@ export class UserRepo {
     }
   }
 
-  async getByName({ username }) {
-    if (!username) throw new Error(this.errorCodes.missingUsername);
-
-    const user = (
-      await this.db.query(
-        `SELECT ${this.table.columns.id}, ${this.table.columns.username}, ${this.table.columns.photo_url}, ${this.table.columns.balance} FROM ${this.table.name} WHERE ${this.table.columns.username}=${username}`
-      )
-    ).results;
-    if (user.length === 0)
-      throw new Error(this.errorCodes.invalidUserNameAndPassword);
-    return user;
-  }
-
   async getById({ userId }) {
     if (!userId) throw new Error(this.errorCodes.missingUserId);
 
@@ -51,12 +38,12 @@ export class UserRepo {
         `SELECT ${this.table.columns.id}, ${this.table.columns.username}, ${this.table.columns.photo_url}, ${this.table.columns.balance} FROM ${this.table.name} WHERE ${this.table.columns.id}=${userId}`
       )
     ).results;
-    if (user.length === 0)
-      throw new Error(this.errorCodes.invalidUsernameAndPassword);
+
+    if (user.length === 0) throw new Error(this.errorCodes.invalidUserId);
     return user;
   }
 
-  async getAuthentication({ username, password }) {
+  async getByUsernameAndPassword({ username, password }) {
     if (!username) throw new Error(this.errorCodes.missingUsername);
     if (!password) throw new Error(this.errorCodes.missingPassword);
     return (

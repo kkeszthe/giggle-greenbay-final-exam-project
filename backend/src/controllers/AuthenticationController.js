@@ -1,10 +1,7 @@
 export class AuthenticationController {
+  constructor() {}
 
-    constructor() {
-    };
-
-    post(req,res) {
-        res.json(req.user);
-    };
-    
-};
+  post(req, res) {
+    res.json(req.user);
+  }
+}

@@ -1,15 +1,18 @@
 export class UserService {
-  constructor(userRepo, errorCodes) {
+  constructor({ userRepo, errorCodes }) {
     this.user = userRepo;
     this.errorCodes = errorCodes;
   }
 
-  validateParams({ username, password }) {
+  validateParams({ username, password, photo_url }) {
     if (!username && !password)
       throw new Error(this.errorCodes.missingUsernameAndPassword);
     if (!username) throw new Error(this.errorCodes.missingUsername);
     if (!password) throw new Error(this.errorCodes.missingPassword);
+    if (!photo_url) throw new Error(this.errorCodes.missingUrl);
     if (password.length < 8) throw new Error(this.errorCodes.invalidPassword);
+    if (!this.validateURL(photo_url))
+      throw new Error(this.errorCodes.invalidUrl);
   }
 
   validateURL(string) {
@@ -20,9 +23,7 @@ export class UserService {
   }
 
   async add({ username, password, photo_url }) {
-    this.validateParams({ username, password });
-    if (photo_url || this.validateURL(photo_url))
-      throw new Error(this.errorCodes.invalidURL);
+    this.validateParams({ username, password, photo_url });
     const defaultBalance = 0;
     const userId = (
       await this.user.add({
@@ -40,16 +41,22 @@ export class UserService {
   }
 
   async getByUsernameAndPassword({ username, password }) {
+    if (!username && !password)
+      throw new Error(this.errorCodes.missingUsernameAndPassword);
     if (!username) throw new Error(this.errorCodes.missingUsername);
     if (!password) throw new Error(this.errorCodes.missingPassword);
-    return (await this.user.getAuthentication({ username, password }))[0];
+    return (
+      await this.user.getByUsernameAndPassword({ username, password })
+    )[0];
   }
 
   async getById({ userId }) {
+    if (!userId) throw new Error(this.errorCodes.missingUserId);
     return (await this.user.getById({ userId }))[0];
   }
 
   async updateBalance({ userId, amount }) {
+    if (!userId) throw new Error(this.errorCodes.missingUserId);
     if (!amount) throw new Error(this.errorCodes.missingParam);
     const balance = ((await this.getById({ userId })).balance += parseInt(
       amount

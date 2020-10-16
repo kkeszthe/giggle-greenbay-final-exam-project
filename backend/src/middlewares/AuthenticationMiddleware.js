@@ -11,6 +11,7 @@ export class AuthenticationMiddleware {
   validate(req, res, next) {
     try {
       req.user = this.session.verifyToken({ token: req.header('token') });
+
       next();
     } catch (error) {
       const status = this.errorMessages[error.message]

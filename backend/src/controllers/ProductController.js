@@ -1,5 +1,5 @@
 export class ProductController {
-  constructor(productService, errorCodes) {
+  constructor({ productService, errorCodes }) {
     this.product = productService;
     this.post = this.post.bind(this);
     this.get = this.get.bind(this);
@@ -7,29 +7,13 @@ export class ProductController {
     this.getById = this.getById.bind(this);
     this.errorCodes = errorCodes;
     this.errorMessages = {
-      [errorCodes.missingUsernameAndPassword]: {
-        status: 400,
-        message: 'Username and password are required.',
-      },
-      [errorCodes.missingUsername]: {
-        status: 400,
-        message: 'Username is reuired.',
-      },
-      [errorCodes.missingPassword]: {
-        status: 400,
-        message: 'Password is required.',
-      },
-      [errorCodes.invalidPassword]: {
-        status: 400,
-        message: 'Password is too short.',
-      },
-      [errorCodes.usedUsername]: {
-        status: 400,
-        message: 'Username is already taken.',
-      },
       [errorCodes.missingParam]: {
         status: 400,
-        message: 'Product name, description, or seller is missing.',
+        message: 'Product details are required.',
+      },
+      [errorCodes.missingUrl]: {
+        status: 400,
+        message: 'URL is required.',
       },
       [errorCodes.invalidBalance]: {
         status: 400,
@@ -39,7 +23,7 @@ export class ProductController {
         status: 400,
         message: 'Price must be whole number and higher than zero.',
       },
-      [errorCodes.invalidURL]: {
+      [errorCodes.invalidUrl]: {
         status: 400,
         message: 'Valid URL is required.',
       },
@@ -108,6 +92,7 @@ export class ProductController {
       .sellProduct({ productId, userId })
       .then(response => res.status(201).json(response))
       .catch(error => {
+        console.log(error);
         const status = this.errorMessages[error.message]
           ? this.errorMessages[error.message].status
           : 400;

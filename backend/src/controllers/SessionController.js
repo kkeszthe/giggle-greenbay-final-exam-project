@@ -1,5 +1,5 @@
 export class SessionController {
-  constructor(sessionService, errorCodes) {
+  constructor({ sessionService, errorCodes }) {
     this.session = sessionService;
     this.post = this.post.bind(this);
     this.errorMessages = {
