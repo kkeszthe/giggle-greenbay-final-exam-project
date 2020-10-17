@@ -22,12 +22,7 @@ export const getUserAction = () => {
         } else {
           dispatch({
             type: SET_USER_SUCCESS,
-            payload: {
-              userId: data.userId,
-              username: data.username,
-              photo_url: data.photo_url,
-              balance: data.balance,
-            },
+            payload: data,
           });
 
           return true;
@@ -55,12 +50,7 @@ export const updateUserBalanceAction = amount => {
         } else {
           dispatch({
             type: SET_USER_SUCCESS,
-            payload: {
-              userId: data.userId,
-              username: data.username,
-              photo_url: data.photo_url,
-              balance: data.balance,
-            },
+            payload: data,
           });
 
           return true;

@@ -22,15 +22,10 @@ export const loginAction = ({ username, password }) => {
           return false;
         } else {
           localStorage.setItem('token', data.token);
-          localStorage.setItem('user', data.userId);
+          localStorage.setItem('user', data.id);
           dispatch({
             type: SET_USER_SUCCESS,
-            payload: {
-              userId: data.userId,
-              username: data.username,
-              photo_url: data.photo_url,
-              balance: data.balance,
-            },
+            payload: data,
           });
           dispatch({ type: SET_TOKEN_SUCCESS, payload: data.token });
 
