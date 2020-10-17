@@ -4,18 +4,6 @@ import app from '../src/app';
 jest.mock('../src/data/connection');
 import { db } from '../src/data/connection';
 
-db.query.mockImplementation(() => ({
-  results: [
-    {
-      id: 14,
-      username: 'username',
-      photo_url:
-        'https://www.nordmet.se/wp-content/uploads/2017/11/Siluett-med-spelarprofilbild-2.jpg',
-      balance: 100,
-    },
-  ],
-}));
-
 class duplicateError extends Error {
   constructor() {
     super();
@@ -118,7 +106,7 @@ describe('POST /users', () => {
   });
 
   test('username already in use returns error "Username is already taken."', done => {
-    db.query.mockImplementation(() => {
+    db.query.mockImplementationOnce(() => {
       throw new duplicateError();
     });
     request(app)
@@ -140,15 +128,13 @@ describe('POST /users', () => {
   });
 
   test('proper data returns object', done => {
-    db.query.mockImplementationOnce(() => ({ results: { insertId: 4 } }));
-    db.query.mockImplementationOnce(() => ({ results: { insertId: 4 } }));
-    db.query.mockImplementation(() => ({ results: [] }));
+    db.query.mockImplementation(() => ({ results: { insertId: 14 } }));
 
     request(app)
       .post('/api/users')
       .set('Accept', 'application/json')
       .send({
-        username: 'superuser',
+        username: 'username',
         password: 'password',
         photo_url:
           'https://www.nicepng.com/png/full/914-9144016_avatar-pictures-anime-male-hair-reference.png',
@@ -158,8 +144,8 @@ describe('POST /users', () => {
       .end((err, data) => {
         if (err) return done(err);
         expect(data.body).toEqual({
-          id: 4,
-          username: 'superuser',
+          id: 14,
+          username: 'username',
         });
         return done();
       });
@@ -168,6 +154,18 @@ describe('POST /users', () => {
 
 describe('GET /users/:userId', () => {
   test('proper data returns object', done => {
+    db.query.mockImplementation(() => ({
+      results: [
+        {
+          id: 14,
+          username: 'username',
+          photo_url:
+            'https://www.nordmet.se/wp-content/uploads/2017/11/Siluett-med-spelarprofilbild-2.jpg',
+          balance: 100,
+        },
+      ],
+    }));
+
     request(app)
       .get('/api/users/11')
       .set(
@@ -215,6 +213,17 @@ describe('PUT /users/:userId', () => {
   });
 
   test('proper data returns object', done => {
+    db.query.mockImplementation(() => ({
+      results: [
+        {
+          id: 14,
+          username: 'username',
+          photo_url:
+            'https://www.nordmet.se/wp-content/uploads/2017/11/Siluett-med-spelarprofilbild-2.jpg',
+          balance: 100,
+        },
+      ],
+    }));
     request(app)
       .put('/api/users/11/balance')
       .set('Accept', 'application/json')
