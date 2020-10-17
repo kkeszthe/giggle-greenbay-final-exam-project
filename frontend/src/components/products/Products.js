@@ -15,7 +15,7 @@ function Products({ products, getProducts }) {
   }, [getProducts]);
 
   function gotToProduct(productId) {
-    history.push(`/alien/${productId}`);
+    history.push(`/products/${productId}`);
   }
   if (products.length === 0) {
     return <CircularProgress color="inherit" />;
@@ -25,8 +25,8 @@ function Products({ products, getProducts }) {
       {products.map(product => (
         <div
           className="icons"
-          key={product.product_id}
-          onClick={() => gotToProduct(product.product_id)}
+          key={product.id}
+          onClick={() => gotToProduct(product.id)}
         >
           <img
             src={product.product_photo}

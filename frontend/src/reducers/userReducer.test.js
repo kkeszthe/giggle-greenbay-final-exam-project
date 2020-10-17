@@ -1,42 +1,17 @@
 import * as types from '../constants/ActionTypes';
-import { resourcesReducer } from './resourcesReducer';
+import { userReducer } from './userReducer';
 
 describe('resource reducer', () => {
   it('should return the initial state', () => {
-    expect(resourcesReducer([], {})).toEqual([]);
+    expect(userReducer([], {})).toEqual([]);
   });
 
-  it('should handle UPDATE_RESOURCES_SUCCESS', () => {
+  it('should handle SET_USER_SUCCESS', () => {
     expect(
-      resourcesReducer(null, {
-        type: types.UPDATE_RESOURCES_SUCCESS,
-        payload: [
-          { type: 'gold', amount: 500, generation: 0 },
-          { type: 'food', amount: 500, generation: 0 },
-        ],
+      userReducer(null, {
+        type: types.SET_USER_SUCCESS,
+        payload: { username: 'username' },
       })
-    ).toEqual([
-      { type: 'gold', amount: 500, generation: 0 },
-      { type: 'food', amount: 500, generation: 0 },
-    ]);
-
-    expect(
-      resourcesReducer(
-        [
-          { type: 'gold', amount: 500, generation: 0 },
-          { type: 'food', amount: 500, generation: 0 },
-        ],
-        {
-          type: types.UPDATE_RESOURCES_SUCCESS,
-          payload: [
-            { type: 'gold', amount: 100, generation: 0 },
-            { type: 'food', amount: 500, generation: 0 },
-          ],
-        }
-      )
-    ).toEqual([
-      { type: 'gold', amount: 100, generation: 0 },
-      { type: 'food', amount: 500, generation: 0 },
-    ]);
+    ).toEqual({ username: 'username' });
   });
 });

@@ -1,22 +1,22 @@
 import * as types from '../constants/ActionTypes';
-import { troopsReducer } from './troopsReducer';
+import { productsReducer } from './productsReducer';
 
-describe('troops reducer', () => {
+describe('products reducer', () => {
   it('should return the initial state', () => {
-    expect(troopsReducer([], {})).toEqual([]);
+    expect(productsReducer([], {})).toEqual([]);
   });
 
-  it('should handle UPDATE_TROOPS_SUCCESS', () => {
+  it('should handle UPDATE_PRODUCTS_SUCCESS', () => {
     expect(
-      troopsReducer([], {
-        type: types.UPDATE_TROOPS_SUCCESS,
+      productsReducer([], {
+        type: types.UPDATE_PRODUCTS_SUCCESS,
         payload: [{ id: 1, level: 1 }],
       })
     ).toEqual([{ id: 1, level: 1 }]);
 
     expect(
-      troopsReducer([{ id: 1, level: 1 }], {
-        type: types.UPDATE_TROOPS_SUCCESS,
+      productsReducer([{ id: 1, level: 1 }], {
+        type: types.UPDATE_PRODUCTS_SUCCESS,
         payload: [
           { id: 1, level: 1 },
           { id: 2, level: 1 },
@@ -28,24 +28,24 @@ describe('troops reducer', () => {
     ]);
 
     expect(
-      troopsReducer([{ id: 1, level: 1 }], {
-        type: types.UPDATE_TROOPS_SUCCESS,
+      productsReducer([{ id: 1, level: 1 }], {
+        type: types.UPDATE_PRODUCTS_SUCCESS,
         payload: [{ id: 2, level: 1 }],
       })
     ).toEqual([{ id: 2, level: 1 }]);
   });
 
-  it('should handle ADD_TROOP_SUCCESS', () => {
+  it('should handle ADD_PRODUCT_SUCCESS', () => {
     expect(
-      troopsReducer([], {
-        type: types.ADD_TROOP_SUCCESS,
+      productsReducer([], {
+        type: types.ADD_PRODUCT_SUCCESS,
         payload: { id: 1, level: 1 },
       })
     ).toEqual([{ id: 1, level: 1 }]);
 
     expect(
-      troopsReducer([{ id: 1, level: 1 }], {
-        type: types.ADD_TROOP_SUCCESS,
+      productsReducer([{ id: 1, level: 1 }], {
+        type: types.ADD_PRODUCT_SUCCESS,
         payload: { id: 2, level: 1 },
       })
     ).toEqual([

@@ -20,7 +20,7 @@ function Product({ user, get, product, buyProduct }) {
     get(productId);
   }, [productId, get]);
 
-  if (!product.product_id) {
+  if (!product.id) {
     return <CircularProgress color="inherit" />;
   }
 

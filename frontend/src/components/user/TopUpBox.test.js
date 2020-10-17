@@ -4,7 +4,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act, Simulate } from 'react-dom/test-utils';
 import configureStore from 'redux-mock-store';
 
-import SellProductBox from './SellProductBox';
+import TopUpBox from './TopUpBox';
 import { store } from '../../store';
 
 global.fetch = jest.fn(async () => {
@@ -37,7 +37,7 @@ afterEach(() => {
   container = null;
 });
 
-describe('SellProductBox tests', () => {
+describe('TopUpBox tests', () => {
   it('should dispatch an action when clicked', async () => {
     const mockStore = configureStore([]);
     const mockedStore = mockStore({
@@ -66,13 +66,13 @@ describe('SellProductBox tests', () => {
     await act(async () => {
       render(
         <Provider store={mockedStore}>
-          <SellProductBox open={true} setOpen={() => {}} />
+          <TopUpBox open={true} setOpen={() => {}} />
         </Provider>,
         container
       );
     });
 
-    const button = document.getElementsByClassName('SellProductBTN')[0];
+    const button = document.getElementsByClassName('TopUpBTN')[0];
     Simulate.click(button);
     expect(mockedStore.dispatch).toHaveBeenCalledTimes(2);
   });
@@ -84,7 +84,7 @@ describe('SellProductBox tests', () => {
     await act(async () => {
       render(
         <Provider store={store}>
-          <SellProductBox open={true} setOpen={() => {}} />
+          <TopUpBox open={true} setOpen={() => {}} />
         </Provider>,
         container
       );

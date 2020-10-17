@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapeshot 1`] = `"<section class=\\"products\\"><div class=\\"icons\\"><img src=\\"https://doopshop.hu/wp-content/uploads/2019/05/SPIGEN-AIRSKIN-IPHONE-XR-BLACK.jpg\\" alt=\\"practice\\" class=\\"image\\"><div><p class=\\"MuiTypography-root MuiTypography-body1\\">practice</p><p class=\\"MuiTypography-root MuiTypography-body1\\">12 GBD</p></div></div></section>"`;

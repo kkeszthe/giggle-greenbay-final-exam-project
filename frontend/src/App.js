@@ -22,10 +22,10 @@ function App() {
               <Login />
             </Route>
 
-            <Route path="/products">
+            <Route path="/products" exact>
               <Products />
             </Route>
-            <Route path="/alien/:productId">
+            <Route path="/products/:productId" exact>
               <Product />
             </Route>
           </Switch>

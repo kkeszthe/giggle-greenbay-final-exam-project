@@ -1,9 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
 import App from './App';
+import { store } from './store';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders login screen', () => {
+  const { getByText } = render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  const text = getByText(/sign in/i);
+  expect(text).toBeInTheDocument();
 });
